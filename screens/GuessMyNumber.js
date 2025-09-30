@@ -16,16 +16,15 @@ let minNumber = 1;
 let maxNumber = 100;
 export default function GuessMyNumber({ userNumber, onEndGame }) {
   const initialGuess = generateRandomNumberBetween(
-    minNumber,
-    maxNumber,
+    1,
+    100,
     userNumber
   );
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
   useEffect(() => {
-    if (userNumber === currentGuess) {
-      onEndGame();
-    }
+    console.log()
+    if (userNumber == currentGuess) onEndGame();
   }, [currentGuess, userNumber, onEndGame]);
 
   function nextGuessHandler(direction) {

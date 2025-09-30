@@ -9,29 +9,25 @@ import GameOver from "./screens/GameOver";
 
 export default function App() {
   const [gameStarted, setGameStarted] = useState(false);
-  const [gameEnded, setGameEnded] = useState(false);
   const [userNumber, setUserNumber] = useState(null);
   function onStartGame() {
     setGameStarted(true);
   }
   function onEndGame() {
     setGameStarted(false);
-    setGameEnded(true);
   }
   function handleUserInput(number) {
     setUserNumber(number);
   }
-  let screen;
-  if (userNumber && gameStarted) {
-    screen = (
-      <StartGameScreen
-        onStartGame={onStartGame}
-        handleUserInput={handleUserInput}
-      />
-    );
-  } else if (gameStarted && !gameEnded) {
+  let screen = (
+    <StartGameScreen
+      onStartGame={onStartGame}
+      handleUserInput={handleUserInput}
+    />
+  );
+  if (gameStarted) {
     screen = <GuessMyNumber onEndGame={onEndGame} userNumber={userNumber} />;
-  } else {
+  } else if (!gameStarted && userNumber) {
     screen = <GameOver />;
   }
   return (
