@@ -10,6 +10,7 @@ import GameOver from "./screens/GameOver";
 export default function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [userNumber, setUserNumber] = useState(null);
+  const [userGuesses, setUserGuesses] = useState([]);
   function onStartGame() {
     setGameStarted(true);
   }
@@ -26,12 +27,12 @@ export default function App() {
     />
   );
   if (gameStarted) {
-    screen = <GuessMyNumber onEndGame={onEndGame} userNumber={userNumber} />;
+    screen = <GuessMyNumber userGuesses={setUserGuesses} onEndGame={onEndGame} userNumber={userNumber} />;
   } else if (!gameStarted && userNumber) {
-    screen = <GameOver />;
+    screen = <GameOver numberOfGuesses={userGuesses} />;
   }
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <LinearGradient
         style={styles.container}
         colors={["rgba(0, 0, 0, 0.8)", "blue"]}
@@ -46,7 +47,7 @@ export default function App() {
           {screen}
         </ImageBackground>
       </LinearGradient>
-    </SafeAreaView>
+    </View>
   );
 }
 
