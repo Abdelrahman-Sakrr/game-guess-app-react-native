@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import Title from "../components/Title";
 
-export default function StartGameScreen({ onStartGame , handleUserInput }) {
+export default function StartGameScreen({ onStartGame, handleUserInput }) {
   const [currentNumber, setCurrentNumber] = useState("");
   function handleChange(input) {
     setCurrentNumber(input);
@@ -11,6 +11,7 @@ export default function StartGameScreen({ onStartGame , handleUserInput }) {
   function handleSubmit() {
     handleUserInput(currentNumber);
     onStartGame();
+    setCurrentNumber("");
   }
 
   return (

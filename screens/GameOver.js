@@ -1,9 +1,9 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Title from "../components/Title";
+import GuessCard from "../components/GuessCard";
 
-export default function GameOver({ numberOfGuesses }) {
+export default function GameOver({ numberOfGuesses, playAgain }) {
   return (
     <SafeAreaView style={styles.container}>
       <Title>Game Over !</Title>
@@ -12,12 +12,24 @@ export default function GameOver({ numberOfGuesses }) {
         <Text style={styles.numberOfGuesses}>{numberOfGuesses.length}</Text>{" "}
         Times{" "}
       </Text>
+      <FlatList
+        style={{ width: "100%" }}
+        data={numberOfGuesses}
+        keyExtractor={(item) => item}
+        renderItem={(item) => <GuessCard key={item.item} item={item} />}
+      />
+      <Pressable
+        style={{ backgroundColor: "blue", borderRadius: 20 }}
+        onPress={() => playAgain()}
+      >
+        <Text style={styles.text}>Play Again</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 0.7,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     margin: 20,

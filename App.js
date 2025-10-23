@@ -2,7 +2,6 @@ import { ImageBackground, StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import StartGameScreen from "./screens/StartGameScreen";
-import { SafeAreaView } from "react-native-safe-area-context";
 import GuessMyNumber from "./screens/GuessMyNumber";
 import { useState } from "react";
 import GameOver from "./screens/GameOver";
@@ -20,6 +19,11 @@ export default function App() {
   function handleUserInput(number) {
     setUserNumber(number);
   }
+  function playAgain() {
+    setGameStarted(false);
+    setUserNumber(null);
+    setUserGuesses([]);
+  }
   let screen = (
     <StartGameScreen
       onStartGame={onStartGame}
@@ -27,9 +31,15 @@ export default function App() {
     />
   );
   if (gameStarted) {
-    screen = <GuessMyNumber userGuesses={setUserGuesses} onEndGame={onEndGame} userNumber={userNumber} />;
+    screen = (
+      <GuessMyNumber
+        userGuesses={setUserGuesses}
+        onEndGame={onEndGame}
+        userNumber={userNumber}
+      />
+    );
   } else if (!gameStarted && userNumber) {
-    screen = <GameOver numberOfGuesses={userGuesses} />;
+    screen = <GameOver playAgain={playAgain} numberOfGuesses={userGuesses} />;
   }
   return (
     <View style={styles.container}>
